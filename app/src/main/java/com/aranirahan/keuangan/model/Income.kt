@@ -7,7 +7,9 @@ data class Income(
     val amount: Int? = null,
 
     val number: String? = null,
-    val date: String? = null
+    val date: String? = null,
+
+    val billId: Int? = null
 ) {
     companion object {
         val TABLE_INCOME = "income"
@@ -18,5 +20,7 @@ data class Income(
 
         val NUMBER = "number"
         val DATE = "date"
+
+        val BILL_ID = "billId"
     }
 }

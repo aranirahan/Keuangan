@@ -7,9 +7,11 @@ import android.os.Bundle
 import com.aranirahan.keuangan.R
 import com.aranirahan.keuangan.db.database
 import com.aranirahan.keuangan.helper.getNumberIncome
+import com.aranirahan.keuangan.model.Bill
 import com.aranirahan.keuangan.model.Income
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.db.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import java.text.SimpleDateFormat
 import java.util.*
@@ -41,52 +43,97 @@ class MainActivity : AppCompatActivity() {
             return dateFormat.format(date)
         }
 
+    private var bill: Bill? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        insertDb()
-        getDb()
+        insertBillDb()
+        getOneBill()
+        insertIncomeDb()
+        getIncomeDb()
         initView()
+        onClickBtnBill()
     }
 
-    private fun insertDb(){
+    private fun insertBillDb() {
+        database.use {
+            insert(
+                Bill.TABLE_BILL,
+                Bill.BILL_ID to 1111,
+                Bill.BANK_NAME to "Aran Bank",
+                Bill.NUMBER to 1,
+                Bill.NAME to "Markonah"
+            )
+        }
+    }
+
+    private fun getOneBill() {
+        database.use {
+            select(Bill.TABLE_BILL)
+                .whereSimple("${Bill.BILL_ID} = ?", 1111.toString())
+                .parseOpt(object : MapRowParser<Bill> {
+                    override fun parseRow(columns: Map<String, Any?>): Bill {
+
+                        val billId = columns.getValue(Bill.BILL_ID)
+                        val billBankName = columns.getValue(Bill.BANK_NAME)
+                        val billNumber = columns.getValue(Bill.NUMBER)
+                        val billName = columns.getValue(Bill.NAME)
+
+                        bill = Bill(
+                            billId = billId?.toString()?.toInt(),
+                            billBankName = billBankName?.toString(),
+                            billNumber = billNumber?.toString()?.toInt(),
+                            billName = billName?.toString()
+                        )
+                        return bill as Bill
+                    }
+                })
+        }
+
+    }
+
+    private fun insertIncomeDb() {
         database.use {
             insert(
                 Income.TABLE_INCOME,
                 Income.INCOME_ID to 1,
-                Income.INCOME_FROM to "Customer A",
+                Income.INCOME_FROM to bill?.billName,
                 Income.DESC to "Buy Pencil",
                 Income.AMOUNT to 1000,
 
                 Income.NUMBER to getNumberIncome(todayDateForNumber),
-                Income.DATE to todayDate
+                Income.DATE to todayDate,
+                Income.BILL_ID to bill?.billId
             )
             insert(
                 Income.TABLE_INCOME,
                 Income.INCOME_ID to 2,
-                Income.INCOME_FROM to "Customer B",
+                Income.INCOME_FROM to bill?.billName,
                 Income.DESC to "Buy Pen",
                 Income.AMOUNT to 2000,
 
                 Income.NUMBER to getNumberIncome(todayDateForNumber),
-                Income.DATE to todayDate
+                Income.DATE to todayDate,
+                Income.BILL_ID to bill?.billId
             )
             insert(
                 Income.TABLE_INCOME,
                 Income.INCOME_ID to 3,
-                Income.INCOME_FROM to "Customer C",
+                Income.INCOME_FROM to bill?.billName,
                 Income.DESC to "Buy Paper",
                 Income.AMOUNT to 3000,
 
                 Income.NUMBER to getNumberIncome(todayDateForNumber),
-                Income.DATE to todayDate
+                Income.DATE to todayDate,
+                Income.BILL_ID to bill?.billId
             )
 
         }
     }
 
-    private fun getDb(){
+    private fun getIncomeDb() {
         try {
             database.use {
                 select(
@@ -128,7 +175,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initView(){
+    private fun initView() {
         incomeList.forEach {
             incomeIds += "${it.incomeId}\n"
             incomeFroms += "${it.incomeFrom}\n"
@@ -149,5 +196,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun onClickBtnBill() {
+        btn_bill.setOnClickListener {
+            startActivity<BillActivity>()
+        }
+    }
 
 }

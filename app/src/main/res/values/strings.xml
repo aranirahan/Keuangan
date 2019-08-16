@@ -6,4 +6,8 @@
     <string name="amount">Amount</string>
     <string name="number">Number</string>
     <string name="date">Date</string>
+    <string name="bill">Bill</string>
+    <string name="bill_id">Bill ID</string>
+    <string name="bank_name">Bank Name</string>
+    <string name="name">Name</string>
 </resources>
