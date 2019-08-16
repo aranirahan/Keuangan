@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Keuangan</string>
+    <string name="income_id">Income ID</string>
+    <string name="from">From</string>
+    <string name="desc">Description</string>
+    <string name="amount">Amount</string>
+</resources>
