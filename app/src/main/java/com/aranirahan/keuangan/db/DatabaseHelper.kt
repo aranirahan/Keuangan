@@ -6,7 +6,7 @@ import com.aranirahan.keuangan.model.Bill
 import com.aranirahan.keuangan.model.Income
 import org.jetbrains.anko.db.*
 
-class DatabaseHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "KeuanganDb", null, 2) {
+class DatabaseHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "KeuanganDb", null, 4) {
     companion object {
         private var instance: DatabaseHelper? = null
 
