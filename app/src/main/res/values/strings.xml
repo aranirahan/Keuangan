@@ -4,4 +4,6 @@
     <string name="from">From</string>
     <string name="desc">Description</string>
     <string name="amount">Amount</string>
+    <string name="number">Number</string>
+    <string name="date">Date</string>
 </resources>

@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase
 import com.aranirahan.keuangan.model.Income
 import org.jetbrains.anko.db.*
 
-class DatabaseHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "LibraryDatabase", null, 1) {
+class DatabaseHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "LibraryDatabase", null, 2) {
     companion object {
         private var instance: DatabaseHelper? = null
 
@@ -24,7 +24,10 @@ class DatabaseHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "LibraryDataba
             Income.INCOME_ID to INTEGER + PRIMARY_KEY,
             Income.INCOME_FROM to TEXT,
             Income.DESC to TEXT,
-            Income.AMOUNT to INTEGER
+            Income.AMOUNT to INTEGER,
+
+            Income.NUMBER to INTEGER,
+            Income.DATE to TEXT
         )
     }
 

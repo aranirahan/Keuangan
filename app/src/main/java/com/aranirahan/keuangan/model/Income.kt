@@ -1,10 +1,13 @@
 package com.aranirahan.keuangan.model
 
 data class Income(
-    val incomeId: Int,
-    val incomeFrom: String,
-    val desc: String,
-    val amount: Int
+    val incomeId: Int? = null,
+    val incomeFrom: String? = null,
+    val desc: String? = null,
+    val amount: Int? = null,
+
+    val number: Int? = null,
+    val date: String? = null
 ) {
     companion object {
         val TABLE_INCOME = "income"
@@ -12,5 +15,8 @@ data class Income(
         val INCOME_FROM = "incomeFrom"
         val DESC = "desc"
         val AMOUNT = "amount"
+
+        val NUMBER = "number"
+        val DATE = "date"
     }
 }
