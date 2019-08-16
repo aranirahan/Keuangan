@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.aranirahan.keuangan.R
 import com.aranirahan.keuangan.db.database
 import com.aranirahan.keuangan.model.Bill
-import com.aranirahan.keuangan.model.Income
 import kotlinx.android.synthetic.main.activity_bill.*
 import org.jetbrains.anko.db.MapRowParser
 import org.jetbrains.anko.db.select
