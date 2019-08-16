@@ -6,7 +6,7 @@ data class Income(
     val desc: String? = null,
     val amount: Int? = null,
 
-    val number: Int? = null,
+    val number: String? = null,
     val date: String? = null
 ) {
     companion object {

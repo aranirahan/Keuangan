@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.aranirahan.keuangan.R
 import com.aranirahan.keuangan.db.database
+import com.aranirahan.keuangan.helper.getNumberIncome
 import com.aranirahan.keuangan.model.Income
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.db.*
@@ -32,6 +33,14 @@ class MainActivity : AppCompatActivity() {
             return dateFormat.format(date)
         }
 
+    private val todayDateForNumber: String
+        @SuppressLint("SimpleDateFormat")
+        get() {
+            val date = Calendar.getInstance().time
+            val dateFormat = SimpleDateFormat("yymmdd")
+            return dateFormat.format(date)
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -50,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                 Income.DESC to "Buy Pencil",
                 Income.AMOUNT to 1000,
 
-                Income.NUMBER to 1,
+                Income.NUMBER to getNumberIncome(todayDateForNumber),
                 Income.DATE to todayDate
             )
             insert(
@@ -60,7 +69,7 @@ class MainActivity : AppCompatActivity() {
                 Income.DESC to "Buy Pen",
                 Income.AMOUNT to 2000,
 
-                Income.NUMBER to 2,
+                Income.NUMBER to getNumberIncome(todayDateForNumber),
                 Income.DATE to todayDate
             )
             insert(
@@ -70,7 +79,7 @@ class MainActivity : AppCompatActivity() {
                 Income.DESC to "Buy Paper",
                 Income.AMOUNT to 3000,
 
-                Income.NUMBER to 3,
+                Income.NUMBER to getNumberIncome(todayDateForNumber),
                 Income.DATE to todayDate
             )
 
@@ -105,7 +114,7 @@ class MainActivity : AppCompatActivity() {
                             incomeDesc?.toString(),
                             incomeAmount?.toString()?.toInt(),
 
-                            incomeNumber?.toString()?.toInt(),
+                            incomeNumber?.toString(),
                             incomeDate?.toString()
                         )
 
@@ -137,5 +146,8 @@ class MainActivity : AppCompatActivity() {
 
         tv_income_number.text = incomeNumbers
         tv_income_date.text = incomeDates
+
     }
+
+
 }

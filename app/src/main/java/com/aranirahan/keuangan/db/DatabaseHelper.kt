@@ -26,7 +26,7 @@ class DatabaseHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "LibraryDataba
             Income.DESC to TEXT,
             Income.AMOUNT to INTEGER,
 
-            Income.NUMBER to INTEGER,
+            Income.NUMBER to TEXT,
             Income.DATE to TEXT
         )
     }
